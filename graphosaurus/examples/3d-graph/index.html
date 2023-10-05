@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Render</title>
+    <style>
+      #frame {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+      }
+
+      #label {
+        position: absolute;
+        top: 15;
+        left: 15;
+        z-index: 1;
+        color: white;
+        font-family: sans-serif;
+      }
+
+      #title {
+        position: absolute;
+        top: 15;
+        right: 15;
+        z-index: 1;
+        color: white;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="frame"></div>
+
+    <div id="label"></div>
+
+    <script src="../../dist/graphosaurus.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="streamlineResult.js"></script>
+    <script>
+      var color = 0xffffff;
+
+      graph = G.graph({
+        nodeImage: "./disc.png",
+        nodeImageTransparent: true,
+        antialias: true,
+        bgColor: "black",
+        edgeWidth: 1.5,
+        nodeSize: 6,
+      });
+
+      for (var i = 0; i < res.results.length; i++) {
+        var array = res.results[i];
+        for (var j = 0; j < array.length; j++) {
+          var node = array[j];
+          var coords = node.slice(0, 4);
+          var node = G.node(coords, { color: 0xffffff });
+          node.name = "test";
+          node.addTo(graph);
+        }
+      }
+
+      graph.renderIn("frame");
+    </script>
+  </body>
+</html>
